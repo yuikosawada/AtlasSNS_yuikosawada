@@ -13,4 +13,10 @@ class UsersController extends Controller
     public function search(){
         return view('users.search');
     }
+    public function create(Request $request)
+    {
+        $user = $request->input('newUser');
+        Post::create(['user' => $user]);
+        return redirect('index');
+    }
 }

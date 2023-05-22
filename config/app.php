@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // 「HtmlServiceProvider」で、HTMLのタグを省略したLaravel用の記述方法をまとめたライブラリを使用できる設定
+        Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -225,6 +228,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        // フォームファサードを使用する設定をオンにしている書き込み
+        //追加したHtmlServiceProviderライブラリの中の「html」と「Form」ファサード機能を使う設定
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
 
     ],
 
