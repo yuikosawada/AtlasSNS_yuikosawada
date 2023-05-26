@@ -1,6 +1,16 @@
 @extends('layouts.logout')
 
 @section('content')
+
+<!--エラーを表示する -->
+@if($errors->any())
+<ul>
+@foreach($errors->all() as $error)
+<li>{{$error}}</li>
+@endforeach
+</ul>
+@endif
+
 <!-- 適切なURLを入力してください -->
 <!-- action属性でどこに送るかをファザードバージョンで記述 -->
 {!! Form::open(['url' => '/register']) !!}

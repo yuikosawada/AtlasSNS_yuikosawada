@@ -39,25 +39,38 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    public function register(Request $request){
-        if($request->isMethod('post')){
+    public function register(Request $request)
+    {
+        // バリデーションルール定義
+        $rules = $request->validate([
+            'username' => 'required|min:2|max:12',
+            'mail' => 'required|min:5|max:40',
+            'password' => 'required|alpha_desh|min:8|max:20',
+            'password_confirmation' => 'required|alpha_desh|min:8|max:20|same:password'
+        ]);
 
-            $username = $request->input('username');
-            $mail = $request->input('mail');
-            $password = $request->input('password');
+        if ($request->isMethod('post')) {
+            $username = $rules['username'];
+            $mail = $rules['mail'];
+            $password = $rules['password'];
+            // $username = $request->input('username');
+            // $mail = $request->input('mail');
+            // $password = $request->input('password');
 
-            User::create([
-                'username' => $username,
-                'mail' => $mail,
-                'password' => bcrypt($password),
-            ]);
+
+            // User::create([
+            //     'username' => $username,
+            //     'mail' => $mail,
+            //     'password' => bcrypt($password),
+            // ]);
 
             return redirect('added');
         }
         return view('auth.register');
     }
 
-    public function added(){
+    public function added()
+    {
         return view('auth.added');
     }
 }
