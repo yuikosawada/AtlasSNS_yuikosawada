@@ -2,13 +2,14 @@
 
 @section('content')
 
-<!--エラーを表示する -->
 @if($errors->any())
-<ul>
-@foreach($errors->all() as $error)
-<li>{{$error}}</li>
-@endforeach
-</ul>
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
 @endif
 
 <!-- 適切なURLを入力してください -->

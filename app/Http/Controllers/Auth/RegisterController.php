@@ -6,6 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+// RegisterFormRequestを使用
+use App\Http\Requests\RegisterFormRequest;
 
 class RegisterController extends Controller
 {
@@ -41,32 +43,23 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // バリデーションルール定義
-        $rules = $request->validate([
-            'username' => 'required|min:2|max:12',
-            'mail' => 'required|min:5|max:40',
-            'password' => 'required|alpha_desh|min:8|max:20',
-            'password_confirmation' => 'required|alpha_desh|min:8|max:20|same:password'
-        ]);
-
         if ($request->isMethod('post')) {
-            $username = $rules['username'];
-            $mail = $rules['mail'];
-            $password = $rules['password'];
-            // $username = $request->input('username');
-            // $mail = $request->input('mail');
-            // $password = $request->input('password');
 
+            $username = $request->input('username');
+            $mail = $request->input('mail');
+            $password = $request->input('password');
 
-            // User::create([
-            //     'username' => $username,
-            //     'mail' => $mail,
-            //     'password' => bcrypt($password),
-            // ]);
+            User::create([
+                'username' => $username,
+                'mail' => $mail,
+                'password' => bcrypt($password),
+            ]);
 
             return redirect('added');
         }
         return view('auth.register');
+
+        $validated = $request->validated();
     }
 
     public function added()
