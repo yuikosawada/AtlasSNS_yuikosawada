@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <meta charset="utf-8" />
     <!--IEブラウザ対策-->
@@ -20,21 +21,24 @@
     <link rel="apple-touch-icon-precomposed" href="画像のURL" />
     <!--OGPタグ/twitterカード-->
 </head>
+
 <body>
     <header>
         <div id="head">
-            <h1><a><img src="images/logo.png"></a></h1>
-            <div id="">
-                <div id="">
-                    <p>{{Auth::user()->username }}さん<img src="images/arrow.png"></p>
-                    <div>
-                        <ul>
-                            <li><a href="/top">ホーム</a></li>
-                            <li><a href="/profile">プロフィール</a></li>
-                            <li><a href="/logout">ログアウト</a></li>
-                        </ul>
-                    </div>
+            <h1><a href="/top"><img class="logo" src="images/atlas.png"></a></h1>
+                <div id="" class="user">
+                    <p>{{Auth::user()->username }}さん</p>
+                    <img class="nav-open active" src="images/arrow.png">
+
                 </div>
+                <nav>
+                    <ul>
+                        <li><a href="{{url('/top')}}">HOME</a></li>
+                        <li><a href="{{url('/profile')}}">プロフィール編集</a></li>
+                        <li><a href="{{url('/logout')}}">ログアウト</a></li>
+                    </ul>
+                </nav>
+        </div>
     </header>
     <div id="row">
         <div id="container">
@@ -59,8 +63,8 @@
     </div>
     <footer>
     </footer>
-    <script src="JavaScriptファイルのURL"></script>
-    <script src="JavaScriptファイルのURL"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
+    <script src="{{ asset('/js/main.js') }}"></script>
 </body>
 
 </html>

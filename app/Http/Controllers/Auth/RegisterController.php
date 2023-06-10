@@ -6,8 +6,8 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-// RegisterFormRequestを使用
-use App\Http\Requests\RegisterFormRequest;
+// Validationを使う
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -43,24 +43,38 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // Postの処理
         if ($request->isMethod('post')) {
+            $data = $request->input();
+            $rules = [
+                //バリデーションルール
+                'username' => 'required|min:2|max:12',
+                'mail' => 'required|string|email|min:5|max:40|unique:users',
+                'password' => 'required|string|alpha_num|min:8|max:20|confirmed',
+                'password_confirmation' => 'required|string|alpha_num|min:8|max:20'
+            ];
+            $validator = Validator::make($data, $rules);
 
-            $username = $request->input('username');
-            $mail = $request->input('mail');
-            $password = $request->input('password');
+            if ($validator->fails()) {
+                return redirect('/register')
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
-            User::create([
-                'username' => $username,
-                'mail' => $mail,
-                'password' => bcrypt($password),
-            ]);
+            // User::create($data);
+            // $this->create($data);
+            // $user=$request->session() ->get('username');
+            // return redirect('added')->with('username',$user);
 
-            return redirect('added');
+            // 新規登録後にユーザー名を表示せるために変更
+            $username = User::create($data);
+            $user = $request->get('username');
+            return redirect('added')->with('username', $user);
         }
-        return view('auth.register');
 
-        $validated = $request->validated();
+        return view('auth.register');
     }
+
 
     public function added()
     {
