@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use Auth;
+use Validator;
+
 
 class UsersController extends Controller
 {
@@ -22,29 +25,54 @@ class UsersController extends Controller
         return redirect('index');
     }
 
-
+    public function profile()
+    {
+        return view('users.profile');
+    }
 
     // ここから下編集中
 
     public function update(Request $request)
     {
-        $user = Auth::user();
-        // $image = $request->file('iconimage');
-        //ファイルが送信されたか確認
-        if ($request->hasFile('image')) { //バリデーションでチェックするなら、ここは無くてもいいかも
-            //アップロードに成功しているか確認
-            if ($request->file('image')->isValid()) {
-                $image = $request->file('iconimage')->store('public/images');
-            }
-        };
-        
+        $id = Auth::id();
+        $username = $request->input('username');
+        $mail = $request->input('mail');
+        $bio = $request->input('bio');
+        $password = $request->input('password');
+        // imagesフィールドにアップロードされた画像をpublic/imagesに保存する
+        $images = $request->file('images');
 
-        $user->update([
-            'username' => $request->input('username'),
-            'mail' => $request->input('mail'),
-            'password' => bcrypt($request->input('password')),
-            'bio' => $request->input('bio'),
-            'images' => basename($image),
+        // $validator = Validator::make($request->all(), $rules);
+        // if ($validator->fails()) {
+        //     return redirect('/register')
+        //             ->withErrors($validator)
+        //             ->withInput();
+
+
+        // }
+
+
+        $this->validate($request, [
+            'username' => 'required|string|max:255',
+            'mail' => 'required|string|email|max:255',
+            'bio' => 'string|max:150',
+            'password' => 'required|string|alpha_num|min:8|max:20|confirmed',
+            'password_confirmation' => 'required|string|alpha_num|min:8|max:20',
+            'image' => 'image|mimes:jpeg,png,jpg,gif'
         ]);
+        // if ($request->hasFile('image')) {
+        //     $images->store('public/images');
+        // } elseif ($validator->fails()) {
+        //     return redirect('/profile')->withErrors($validator)->withInput();
+        // };
+
+        User::where('id', $id)->update([
+            'username' => $username,
+            'mail' => $mail,
+            'bio' => $bio,
+            'password' => $password,
+            'images' => $images,
+        ]);
+        return redirect('/top');
     }
 }

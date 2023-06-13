@@ -45,10 +45,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/top', 'PostsController@index');
 
-    Route::get('/profile', 'UsersController@update');
+    Route::get('/profile', 'UsersController@profile');
+    Route::post('/profile', 'UsersController@profile');
+    Route::post('/profile/update', 'UsersController@update');
+
+
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
-    Route::get('user/{id}/profile', 'UsersController@profile');
+    // Route::get('user/{id}/profile', 'UsersController@profile');
 
     Route::get('/search', 'UsersController@index');
 

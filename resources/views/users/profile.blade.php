@@ -3,32 +3,43 @@
 @section('content')
 
 
-{{!! Form::open(['url' =>'/profile/{id}/update','method'=>'post','files' => true]) !!}}
-{{!! Form::hidden('id', $auth->id) !!}}
+{!! Form::open(['url' =>'/profile/update','method'=>'post','files' => true]) !!}
+{!! Form::hidden('id', Auth::id()) !!}
 
+<!-- {{ Form::text('inputタグのname属性', 'value属性デフォルト値', ['id' => 'id'])}} -->
 <tr>
-    <td>{{Form:label('username','user name')}}
-        {{Form:text('username',$auth->username ,['class'=>'input'])}}
+    <td>{{Form::label('username','ユーザー名')}}
+        {{Form::text('username',Auth::user()->username ,['class'=>'input'])}}
     </td>
-    <td>{{Form:label('mail','mail')}}
-        {{Form:text('mail',$auth->mail ,['class'=>'input'])}}
+    <td>{{Form::label('mail','メールアドレス')}}
+        {{Form::text('mail',Auth::user()->mail ,['class'=>'input'])}}
     </td>
-    <td>{{Form:label('password','password')}}
-        {{Form:text('password',['class'=>'input'])}}
+    <td>{{Form::label('password','パスワード')}}
+        {{Form::text('password', null,['class'=>'input'])}}
     </td>
-    <td>{{Form:label('password_confirm','password confirm')}}
-        {{Form:text('password_confirm',$auth->password ,['class'=>'input'])}}
+    <td>{{Form::label('password_confirmation','パスワード確認')}}
+        {{Form::text('password_confirmation',null,['class'=>'input'])}}
     </td>
-    <td>{{Form:label('bio','bio')}}
-        {{Form:text('bio',$auth->bio ,['class'=>'input'])}}
+    <td>{{Form::label('bio','自己紹介')}}
+        {{Form::text('bio',Auth::user()->bio,['class'=>'input'])}}
     </td>
-    <td>{{Form:label('image','image')}}
-        {{Form:file('image',['class'=>'input','id'=>'iconimage'])}}
+    <td>
+        {{Form::label('image','アイコン')}}
+        {{Form::file('images',['class'=>'input','id'=>'images'])}}
     </td>
     <td>
         {{Form::submit('更新')}}
     </td>
 </tr>
+@if($errors->any())
+<div class="alert alert-danger">
+    <ul>
+        @foreach($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 
-{{!!Form::close();!!}}
+{!!Form::close();!!}
 @endsection
