@@ -42,16 +42,6 @@ class UsersController extends Controller
         // imagesフィールドにアップロードされた画像をpublic/imagesに保存する
         $images = $request->file('images');
 
-        // $validator = Validator::make($request->all(), $rules);
-        // if ($validator->fails()) {
-        //     return redirect('/register')
-        //             ->withErrors($validator)
-        //             ->withInput();
-
-
-        // }
-
-
         $this->validate($request, [
             'username' => 'required|string|max:255',
             'mail' => 'required|string|email|max:255',
@@ -70,7 +60,7 @@ class UsersController extends Controller
             'username' => $username,
             'mail' => $mail,
             'bio' => $bio,
-            'password' => $password,
+            'password' =>  bcrypt($password),
             'images' => $images,
         ]);
         return redirect('/top');

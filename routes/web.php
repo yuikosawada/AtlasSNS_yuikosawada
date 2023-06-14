@@ -41,14 +41,13 @@ Route::post('/top', 'PostsController@index');
 
 Route::group(['middleware' => 'auth'], function () {
     //この中に以前の記事で書いたルーティングのコードを書いていく
-    //例えば、プロフィール更新であったりとか、投稿機能であったりとか、ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る感じ
+    //例えば、プロフィール更新であったりとか、投稿機能であったりとか、ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る
 
     Route::get('/top', 'PostsController@index');
 
     Route::get('/profile', 'UsersController@profile');
     Route::post('/profile', 'UsersController@profile');
     Route::post('/profile/update', 'UsersController@update');
-
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 

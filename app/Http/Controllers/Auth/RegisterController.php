@@ -45,7 +45,12 @@ class RegisterController extends Controller
     {
         // Postの処理
         if ($request->isMethod('post')) {
+            $username = $request->input('username');
+            $mail = $request->input('mail');
+            $password = $request->input('password');
             $data = $request->input();
+
+
             $rules = [
                 //バリデーションルール
                 'username' => 'required|min:2|max:12',
@@ -61,13 +66,14 @@ class RegisterController extends Controller
                     ->withInput();
             }
 
-            // User::create($data);
-            // $this->create($data);
-            // $user=$request->session() ->get('username');
-            // return redirect('added')->with('username',$user);
+          
 
             // 新規登録後にユーザー名を表示せるために変更
-            $username = User::create($data);
+            $username =  User::create([
+                'username' => $username,
+                'mail' => $mail,
+                'password' => bcrypt($password),
+            ]);
             $user = $request->get('username');
             return redirect('added')->with('username', $user);
         }
