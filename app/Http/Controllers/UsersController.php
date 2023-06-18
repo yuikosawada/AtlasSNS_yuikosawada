@@ -62,6 +62,7 @@ class UsersController extends Controller
             'bio' => $bio,
             'password' =>  bcrypt($password),
             'images' => $images,
+            // 'images' => basename($images_path),
         ]);
         return redirect('/top');
     }

@@ -50,7 +50,6 @@ class RegisterController extends Controller
             $password = $request->input('password');
             $data = $request->input();
 
-
             $rules = [
                 //バリデーションルール
                 'username' => 'required|min:2|max:12',
@@ -66,16 +65,12 @@ class RegisterController extends Controller
                     ->withInput();
             }
 
-          
-
-            // 新規登録後にユーザー名を表示せるために変更
-            $username =  User::create([
+            User::create([
                 'username' => $username,
                 'mail' => $mail,
                 'password' => bcrypt($password),
             ]);
-            $user = $request->get('username');
-            return redirect('added')->with('username', $user);
+            return redirect('added')->with('username', $username);
         }
 
         return view('auth.register');
