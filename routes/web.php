@@ -47,11 +47,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile', 'UsersController@profile');
     Route::post('/profile', 'UsersController@profile');
     Route::post('/profile/update', 'UsersController@update');
+
+
+
     // Route::get('/timelines', 'PostsController@timelines');
     // Route::post('/timelines', 'PostsController@timelines');
     Route::post('/posts/store', 'PostsController@store_post')->name('post.store_post');
     Route::post('/posts', 'PostsController@all_post');
     Route::get('/top', 'PostsController@index');
+
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 

@@ -29,6 +29,9 @@
                 <div id="" class="user">
                     <p>{{Auth::user()->username }}さん</p>
                     <img class="nav-open active" src="images/arrow.png">
+                    <!-- 画像が保存される場所：storage/app/public -->
+                    <!-- 画像を取得する場所：public/storage -->
+                    
 
                 </div>
                 <nav>

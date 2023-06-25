@@ -3,7 +3,7 @@
 @section('content')
 
 
-{!! Form::open(['url' =>'/profile/update','method'=>'post','files' => true]) !!}
+{!! Form::open(['url' =>'/profile/update','files' => true]) !!}
 {!! Form::hidden('id', Auth::id()) !!}
 
 <!-- {{ Form::text('inputタグのname属性', 'value属性デフォルト値', ['id' => 'id'])}} -->
@@ -25,7 +25,7 @@
     </td>
     <td>
         {{Form::label('image','アイコン')}}
-        {{Form::file('images',['class'=>'input','id'=>'images'])}}
+        {{Form::file('image',['class'=>'input'])}}
     </td>
     <td>
         {{Form::submit('更新')}}
