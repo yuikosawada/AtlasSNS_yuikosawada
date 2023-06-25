@@ -31,13 +31,6 @@ class UsersController extends Controller
         return view('users.profile');
     }
 
-    // ここから下編集中
-    // public function edit(Request $request, User $users)
-    // {
-    //     // compact('users')を使用することで、ビューに'users'変数が渡されます。
-    //     return view('users.edit', compact('users'));
-    // }
-
     public function update(Request $request)
     {
         $id = Auth::id();
@@ -61,9 +54,11 @@ class UsersController extends Controller
                 'image' => 'image|mimes:jpeg,png,jpg,gif'
             ]);
 
-            $users = new User;
+            $users = Auth::user();
             // storeAsを使用すればファイル名画暗号みたいにならずにそのままのファイル名になる
-            $image_path = $request->file('image')->store('public/image');
+            $filename = $request->file('image')->getClientOriginalName();
+
+            $image_path = $request->file('image')->storeAs('public/image', $filename);
             // // 上記処理にて保存した画像に名前を付け、usersテーブルのimagesカラムに格納
             $users->images = basename($image_path);
             $users->username = $username;

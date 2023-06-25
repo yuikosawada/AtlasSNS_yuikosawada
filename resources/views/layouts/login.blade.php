@@ -26,21 +26,22 @@
     <header>
         <div id="head">
             <h1><a href="/top"><img class="logo" src="images/atlas.png"></a></h1>
-                <div id="" class="user">
-                    <p>{{Auth::user()->username }}さん</p>
-                    <img class="nav-open active" src="images/arrow.png">
-                    <!-- 画像が保存される場所：storage/app/public -->
-                    <!-- 画像を取得する場所：public/storage -->
-                    
+            <div id="" class="user">
+                <p>{{Auth::user()->username }}さん</p>
+                <img class="nav-open active" src="images/arrow.png">
+                <!-- 画像が保存される場所：storage/app/public -->
+                <!-- 画像を取得する場所：public/storage -->
+                <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" width="25" height="25">
 
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="{{url('/top')}}">HOME</a></li>
-                        <li><a href="{{url('/profile')}}">プロフィール編集</a></li>
-                        <li><a href="{{url('/logout')}}">ログアウト</a></li>
-                    </ul>
-                </nav>
+
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{url('/top')}}">HOME</a></li>
+                    <li><a href="{{url('/profile')}}">プロフィール編集</a></li>
+                    <li><a href="{{url('/logout')}}">ログアウト</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
     <div id="row">
