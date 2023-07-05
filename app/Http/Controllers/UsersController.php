@@ -29,6 +29,7 @@ class UsersController extends Controller
         $request->session()->put('keyword', $keyword);
         $keyword = $request->session()->get('keyword');
 
+        dd('keyword');
         // 自分とフォロワーのIDを取得
         $user = auth()->user();
         $followerIds = $user->followers()->pluck('follower_id')->push($user->id);
