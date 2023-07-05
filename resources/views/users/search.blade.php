@@ -7,7 +7,8 @@
 
 
 {{Form::label('search','ユーザー名')}}
-{{ Form::text('keyword', $keyword ?? '', ['placeholder' => '検索キーワード']) }}
+{{ Form::text('keyword', old('keyword'), ['placeholder' => '検索キーワード']) }}
+<input type="text" name="keyword" value="{{ old('keyword') }}" />
 
 
 {{Form::submit('検索')}}
