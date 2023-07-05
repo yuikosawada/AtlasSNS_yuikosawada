@@ -66,7 +66,7 @@ nav ul li a {
     color: #757575;
 }
 
-nav ul li:hover a{
+nav ul li:hover a {
     color: #fff;
 }
 
@@ -76,3 +76,10 @@ nav ul li:hover a{
     font-size: 20px;
     position: relative;
 }
+
+/* 投稿一覧 */
+.archives a img{
+    width: 30px;
+    height: 30px;
+}
+

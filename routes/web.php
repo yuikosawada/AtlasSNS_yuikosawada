@@ -40,7 +40,7 @@ Route::post('/top', 'PostsController@index');
 // ログイン後の画面をログインした人にしか見せない設定
 Route::group(['middleware' => 'auth'], function () {
     //この中に以前の記事で書いたルーティングのコードを書いていく
-    //例えば、プロフィール更新であったりとか、投稿機能であったりとか、ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る
+    //ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る
 
     Route::get('/top', 'PostsController@index');
 
@@ -49,19 +49,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profile/update', 'UsersController@update');
 
 
+    Route::get('/search', 'UsersController@search');
+    Route::get('/search', 'UsersController@search_index');
+    Route::post('/search', 'UsersController@search');
+    Route::post('/search', 'UsersController@search_index');
+    
 
-    // Route::get('/timelines', 'PostsController@timelines');
-    // Route::post('/timelines', 'PostsController@timelines');
-    Route::post('/posts/store', 'PostsController@store_post')->name('post.store_post');
-    Route::post('/posts', 'PostsController@all_post');
+    Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
-
+   
+    
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
     // Route::get('user/{id}/profile', 'UsersController@profile');
 
-    Route::get('/search', 'UsersController@index');
+    // Route::get('search', 'UsersController@index');
 
     Route::get('/follow-list', 'PostsController@index');
     Route::get('/follower-list', 'PostsController@index');

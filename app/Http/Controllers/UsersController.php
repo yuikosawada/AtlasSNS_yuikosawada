@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+// use App\User;
 use Auth;
-use phpDocumentor\Reflection\Types\Nullable;
+// use phpDocumentor\Reflection\Types\Nullable;
 use Validator;
 
 
@@ -15,10 +15,39 @@ class UsersController extends Controller
     // public function profile(){
     //     return view('users.profile');
     // }
-    public function search()
+
+    // 検索機能
+    public function search_index()
     {
         return view('users.search');
     }
+
+    //検索
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $request->session()->put('keyword', $keyword);
+        $keyword = $request->session()->get('keyword');
+
+
+
+        // 自分とフォロワーのIDを取得
+        $user = auth()->user();
+        $followerIds = $user->followers()->pluck('follower_id')->push($user->id);
+
+        // 自分とフォロワーの投稿を取得
+        $results = Post::whereIn('user_id', $followerIds)
+            ->where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('content', 'LIKE', "%{$keyword}%");
+            })
+            ->get();
+        // 検索結果をビューに渡す
+        return view('search', compact('keyword', 'results'));
+    }
+
+
+    // ユーザー登録
     public function create(Request $request)
     {
         $user = $request->input('newUser');
@@ -31,6 +60,7 @@ class UsersController extends Controller
         return view('users.profile');
     }
 
+    // プロフィール編集
     public function update(Request $request)
     {
         $id = Auth::id();

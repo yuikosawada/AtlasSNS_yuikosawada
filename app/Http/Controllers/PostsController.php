@@ -5,41 +5,52 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //追加
 use App\Post;
-use App\Follow;
+use App\User;
+// use App\Follow;
 // use Illuminate\Support\Facades\Auth;
 use Auth;
 
 class PostsController extends Controller
 {
-
-    public function index()
+    // 投稿一覧表示
+    public function index(Post $posts)
     {
         // postsフォルダのindex.bladeを表示
-        return view('posts.index');
+        $posts = User::select('users.username', 'posts.id', 'posts.post', 'posts.created_at')
+            ->join('posts', 'posts.user_id', '=', 'users.id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('posts.index', compact('posts'));
     }
 
     // 新規投稿
     public function store_post(Request $request)
     {
-
         // 新規投稿の保存
         $post = new Post();
-        $post->post = $request->input('post_content');
-        $post->user_id = auth()->id();
-        $post->save();
+        $data = Post::create([
+            'post' => $request->input('post_content'),
+            'user_id' => Auth::id(),
+        ]);
 
-        return redirect('/top')->with('success', '投稿が成功しました');
-    }
-
-    //ここまでで新規登録はできている
-    // ここから下編集中。タイムライン表示したい。 
-
-    public function all_post()
-    {
-        // 全ての投稿を取得してタイムラインで表示
-        $posts = Post::orderBy('created_at', 'desc')->get();
-
-        // return view('timeline', compact('posts'));
         return redirect('/top');
     }
+
+    // 投稿削除
+    public function deleat_post(Post $posts)
+    {
+        
+    }
+
+
+    // 投稿編集
+    public function update_post(Post $posts)
+    {
+        $text = $posts->post;
+        $post = Post::find($text);
+        $post->update(['post'=>$request->text]);
+        return redirect('/top');
+    }
+
 }
