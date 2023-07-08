@@ -48,23 +48,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profile', 'UsersController@profile');
     Route::post('/profile/update', 'UsersController@update');
 
+    Route::get('/search', 'App\Http\Controllers\SearchController@search')->name('search');
 
-    Route::get('/search', 'UsersController@search');
-    Route::get('/search', 'UsersController@search_index');
-    Route::post('/search', 'UsersController@search');
-    Route::post('/search', 'UsersController@search_index');
-    
+    // Route::get('/search', 'SearchController@search');
+    Route::get('/search', 'SearchController@search');
+    Route::post('/search', 'SearchController@search');
+    Route::post('/search', 'SearchController@search_index');
+    Route::post('/search', 'SearchController@show_post');
+
 
     Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
-   
-    
+
+    Route::post('post/update', 'PostsController@update_post');
+
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
-    // Route::get('user/{id}/profile', 'UsersController@profile');
-
-    // Route::get('search', 'UsersController@index');
+   
 
     Route::get('/follow-list', 'PostsController@index');
     Route::get('/follower-list', 'PostsController@index');

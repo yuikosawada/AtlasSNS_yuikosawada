@@ -3,10 +3,22 @@ html {
 }
 body {
 }
+
 /* header */
 header {
     background: #186ac9;
 }
+header h1 a img.login_atlas {
+    margin: 0 auto;
+    display: block;
+    width: 150px;
+}
+header p.login_subttl{
+    font-size: 30px;
+    color: #fff;
+    text-align: center;
+}
+
 #head {
     display: flex;
     height: 90px;
@@ -78,8 +90,7 @@ nav ul li:hover a {
 }
 
 /* 投稿一覧 */
-.archives a img{
+.archives a img {
     width: 30px;
     height: 30px;
 }
-

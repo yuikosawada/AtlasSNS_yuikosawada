@@ -16,34 +16,7 @@ class UsersController extends Controller
     //     return view('users.profile');
     // }
 
-    // 検索機能
-    public function search_index()
-    {
-        return view('users.search');
-    }
-
-    //検索
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $request->session()->put('keyword', $keyword);
-        $keyword = $request->session()->get('keyword');
-
-        dd('keyword');
-        // 自分とフォロワーのIDを取得
-        $user = auth()->user();
-        $followerIds = $user->followers()->pluck('follower_id')->push($user->id);
-
-        // 自分とフォロワーの投稿を取得
-        $results = Post::whereIn('user_id', $followerIds)
-            ->where(function ($query) use ($keyword) {
-                $query->where('title', 'LIKE', "%{$keyword}%")
-                    ->orWhere('content', 'LIKE', "%{$keyword}%");
-            })
-            ->get();
-        // 検索結果をビューに渡す
-        return view('search', compact('keyword', 'results'));
-    }
+    
 
 
     // ユーザー登録

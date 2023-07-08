@@ -7,16 +7,19 @@
 
 
 {{Form::label('search','ユーザー名')}}
-{{ Form::text('keyword', old('keyword'), ['placeholder' => '検索キーワード']) }}
-<input type="text" name="keyword" value="{{ old('keyword') }}" />
-
+{{ Form::text('keyword',null,['class'=>'input', 'placeholder' => '検索キーワード']) }}
 
 {{Form::submit('検索')}}
 {!! Form::close(); !!}
 
-
+@if(!empty($keyword))
+<p>検索ワード：{{$keyword}}</p>
+@endif
 <!-- 自分以外の登録ユーザーがすべて表示される -->
-
-
+@foreach($users as $user)
+<tr>
+    <td>{{$user->username}}</td>
+</tr>
+@endforeach
 
 @endsection

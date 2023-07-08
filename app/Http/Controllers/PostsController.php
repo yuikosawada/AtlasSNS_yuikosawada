@@ -45,7 +45,7 @@ class PostsController extends Controller
 
 
     // 投稿編集
-    public function update_post(Post $posts)
+    public function update_post(Request $request, Post $posts)
     {
         $text = $posts->post;
         $post = Post::find($text);

@@ -30,7 +30,7 @@
         @foreach($posts as $post)
         <div class="">
             <!-- 投稿者アイコン -->
-            
+
 
             <!-- 投稿者名・投稿文 -->
             <div class="flex-colum">
@@ -45,7 +45,8 @@
             </p>
             <div class="archives flex">
                 <!-- 編集ボタン -->
-                <a href="/post/{{$post->id}}/update"><img src="images/edit.png" alt="投稿編集"></a>
+                <!-- <a href="/post/{{$post->id}}/update"><img src="images/edit.png" alt="投稿編集"></a> -->
+                <a href="" post="{{$post->post}}" post_id="{{$post->id}}"><img src="images/edit.png" alt="投稿編集"></a>
                 <!-- 削除ボタン -->
                 <a href="/post/{{$post->id}}/deleat" onclick="return comfirm('こちらの投稿を削除してもよろしいでしょうか？')"><img src="images/trash-h.png" alt="投稿削除"></a>
             </div>
