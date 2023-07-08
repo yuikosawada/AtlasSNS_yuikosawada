@@ -18,6 +18,7 @@
 <!-- 自分以外の登録ユーザーがすべて表示される -->
 @foreach($users as $user)
 <tr>
+    <td><img src="{{asset('storage/image/'.Auth::user()->images)}}" width="40" height="40" alt=""></td>
     <td>{{$user->username}}</td>
 </tr>
 @endforeach

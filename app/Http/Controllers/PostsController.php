@@ -20,8 +20,9 @@ class PostsController extends Controller
             ->join('posts', 'posts.user_id', '=', 'users.id')
             ->orderBy('created_at', 'desc')
             ->get();
-
-        return view('posts.index', compact('posts'));
+        $othersPost = Post::where('user_id', '!=', Auth::id())->get();
+// dd($othersPost);
+        return view('posts.index', compact('posts','othersPost'));
     }
 
     // 新規投稿
@@ -33,24 +34,28 @@ class PostsController extends Controller
             'post' => $request->input('post_content'),
             'user_id' => Auth::id(),
         ]);
-
         return redirect('/top');
     }
 
     // 投稿削除
-    public function deleat_post(Post $posts)
+    public function delete_post($id)
     {
-        
+        Post::where('id', $id)->delete();
+
+        return redirect('/top');
     }
 
 
     // 投稿編集
-    public function update_post(Request $request, Post $posts)
+    public function update_post(Request $request)
     {
-        $text = $posts->post;
-        $post = Post::find($text);
-        $post->update(['post'=>$request->text]);
+        $id = $request->input('post_id');
+        $newPost = $request->input('text');
+        Post::where('id', $id)
+            ->update(
+                ['post' => $newPost]
+            );
+
         return redirect('/top');
     }
-
 }

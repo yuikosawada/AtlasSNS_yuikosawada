@@ -60,12 +60,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
 
-    Route::post('post/update', 'PostsController@update_post');
+    Route::post('/top', 'PostsController@update_post');
+    Route::post('/post/update', 'PostsController@update_post');
+    Route::get('/post/{id}/delete', 'PostsController@delete_post');
 
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
-   
+
 
     Route::get('/follow-list', 'PostsController@index');
     Route::get('/follower-list', 'PostsController@index');
