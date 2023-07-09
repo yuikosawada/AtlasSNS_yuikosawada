@@ -67,8 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
-
-
-    Route::get('/follow-list', 'PostsController@index');
+    // Route::post('/follow-list', 'FollowsController@follow_list');
+    Route::get('/follow-list', 'FollowsController@show');
     Route::get('/follower-list', 'PostsController@index');
 });

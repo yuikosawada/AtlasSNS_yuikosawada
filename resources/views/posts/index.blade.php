@@ -23,7 +23,6 @@
 
 
     <!-- 以下タイムライン編集中 -->
-    <div class="">
         @foreach($posts as $post)
         <div class="post flex">
             <!-- 投稿者アイコン -->
@@ -69,7 +68,6 @@
 
         </div>
         @endforeach
-    </div>
 
 
 </section>
