@@ -4,16 +4,30 @@ html {
 body {
 }
 
+/*  */
+.flex {
+    display: flex;
+}
+.j-c-center {
+    justify-content: center;
+}
+.f-d-column{
+    flex-direction: column;
+}
+
 /* header */
 header {
     background: #186ac9;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
 }
 header h1 a img.login_atlas {
     margin: 0 auto;
     display: block;
     width: 150px;
 }
-header p.login_subttl{
+header p.login_subttl {
     font-size: 30px;
     color: #fff;
     text-align: center;
@@ -40,6 +54,7 @@ header p.login_subttl{
 #row {
     display: flex;
     flex-flow: row wrap;
+    padding-top: 90px;
 }
 #container {
     flex: 0 0 80%;
@@ -88,41 +103,77 @@ nav ul li:hover a {
     font-size: 20px;
     position: relative;
 }
+/* サイドバー */
+.auth_username{
+    margin: 20px 0;
+}
+.btn {
+    background-color: #186ac9;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    margin: 20px 0;
+}
+.btn a{
+    color: #fff;
+}
+
+
 
 /* トップページ */
+
 /* 投稿一覧 */
+.post{
+    padding: 15px 0;
+}
 .archives a img {
     width: 30px;
     height: 30px;
 }
+.new_post {
+    max-width: 90%;
+    margin: 0 auto;
+}
+.new_post form {
+    width: 100%;
+}
+.new_post_content {
+    min-width: 80%;
+    border: none;
+}
+.post-username{
+    margin-bottom: 15px;
+}
 
 /* モーダルウィンドウ */
-.model{
+.model {
     display: none;
 }
-.content{
+.content {
     margin: 0 auto;
     padding: 40px;
 }
-.modal{
+.modal {
     display: none;
     height: 100vh;
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
 }
-.modal__bg{
-    background: rgba(0,0,0,0.8);
+.modal__bg {
+    background: rgba(0, 0, 0, 0.8);
     height: 100vh;
     position: absolute;
     width: 100%;
 }
-.modal__content{
+.modal__content {
     background: #fff;
     left: 50%;
     padding: 40px;
     position: absolute;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 60%;
 }

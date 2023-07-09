@@ -16,13 +16,12 @@ class PostsController extends Controller
     public function index(Post $posts)
     {
         // postsフォルダのindex.bladeを表示
-        $posts = User::select('users.username', 'posts.id', 'posts.post', 'posts.created_at')
+        $posts = User::select('users.username', 'users.images', 'posts.id', 'posts.user_id', 'posts.post', 'posts.created_at')
             ->join('posts', 'posts.user_id', '=', 'users.id')
             ->orderBy('created_at', 'desc')
             ->get();
-        $othersPost = Post::where('user_id', '!=', Auth::id())->get();
-// dd($othersPost);
-        return view('posts.index', compact('posts','othersPost'));
+
+        return view('posts.index', compact('posts'));
     }
 
     // 新規投稿
@@ -31,7 +30,7 @@ class PostsController extends Controller
         // 新規投稿の保存
         $post = new Post();
         $data = Post::create([
-            'post' => $request->input('post_content'),
+            'post' => $request->input('new_post_content'),
             'user_id' => Auth::id(),
         ]);
         return redirect('/top');

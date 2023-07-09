@@ -50,13 +50,13 @@
         </div>
         <div id="side-bar">
             <div id="confirm">
-                <p>{{Auth::user()->username }}さんの</p>
-                <div>
+                <p class="auth_username">{{Auth::user()->username }}さんの</p>
+                <div class="flex">
                     <p>フォロー数</p>
                     <p>〇〇名</p>
                 </div>
                 <p class="btn"><a href="{{url('/follow-list')}}">フォローリスト</a></p>
-                <div>
+                <div class="flex">
                     <p>フォロワー数</p>
                     <p>〇〇名</p>
                 </div>
