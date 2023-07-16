@@ -16,7 +16,7 @@
 
         <!-- 投稿者名・投稿文 -->
         <div class="f-d-column">
-            <p class="post-username">{{$post->users->username}}</p>
+            <p class="post-username"></p>
             <p class="post-article">
                 {{$post->post}}
             </p>

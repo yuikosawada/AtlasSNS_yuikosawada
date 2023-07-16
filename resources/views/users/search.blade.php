@@ -17,10 +17,25 @@
 @endif
 <!-- 自分以外の登録ユーザーがすべて表示される -->
 @foreach($users as $user)
-<tr>
-    <td><img src="{{asset('storage/image/'.Auth::user()->images)}}" width="40" height="40" alt=""></td>
-    <td>{{$user->username}}</td>
-</tr>
+<div class="search_post">
+    <img src="{{asset('storage/image/'.$user->images)}}" width="40" height="40" alt="">
+    <p class="search_post_username">{{$user->username}}</p>
+
+    @if(!($isFollow))
+    <a href="{{ route('follow', ['userId' => $user->id]) }}" class="btn follow_btn">フォローする</a>
+    @else
+    <a href="{{ route('unfollow', ['userId' => $user->id]) }}" class="btn unfollow_btn">フォロー解除</a>
+    @endif
+
+</div>
 @endforeach
+
+@if(!empty($follows))
+<div class="follow_list">
+    @foreach($follows as $follow)
+    <p>{{$follow->username}}</p>
+    @endforeach
+</div>
+@endif
 
 @endsection

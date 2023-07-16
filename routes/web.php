@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/search', 'SearchController@search');
     Route::get('/search', 'SearchController@search');
     Route::post('/search', 'SearchController@search');
-    Route::post('/search', 'SearchController@search_index');
+    // Route::post('/search', 'SearchController@search_index');
     Route::post('/search', 'SearchController@show_post');
 
 
@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
     // Route::post('/follow-list', 'FollowsController@follow_list');
-    Route::get('/follow-list', 'FollowsController@show');
-    Route::get('/follower-list', 'PostsController@index');
+    // Route::get('/follow-list', 'FollowsController@show');
+    // Route::post('/search', 'FollowsController@show');
+    Route::get('/follow/{userId}', 'FollowsController@follow')->name('follow');
+    Route::get('/unfollow/{userId}', 'FollowsController@unfollow')->name('unfollow');
 });

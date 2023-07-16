@@ -8,10 +8,10 @@ class Post extends Model
 {
     protected $fillable = ['user_id', 'post'];
 
-   
 
+    // リレーション
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsTo('App\User');
     }
 }

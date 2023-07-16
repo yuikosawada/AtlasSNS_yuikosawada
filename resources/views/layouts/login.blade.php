@@ -55,14 +55,15 @@
                     <p>フォロー数</p>
                     <p>〇〇名</p>
                 </div>
-                <p class="btn"><a href="{{url('/follow-list')}}">フォローリスト</a></p>
+
+                <a href="{{url('/follow-list')}}" class="btn">フォローリスト</a>
                 <div class="flex">
                     <p>フォロワー数</p>
                     <p>〇〇名</p>
                 </div>
-                <p class="btn"><a href="{{url('/follower-list')}}">フォロワーリスト</a></p>
+                <a href="{{url('/follower-list')}}" class="btn">フォロワーリスト</a>
             </div>
-            <p class="btn"><a href="{{url('/search')}}">ユーザー検索</a></p>
+            <a href="{{url('/search')}}" class="btn">ユーザー検索</a>
         </div>
     </div>
     <footer>

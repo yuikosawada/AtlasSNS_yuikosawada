@@ -11,14 +11,14 @@ body {
 .j-c-center {
     justify-content: center;
 }
-.f-d-column{
+.f-d-column {
     flex-direction: column;
 }
 
 /* header */
 header {
     background: #186ac9;
-    position: fixed;
+    /* position: fixed; */
     width: 100%;
     z-index: 9999;
 }
@@ -54,7 +54,6 @@ header p.login_subttl {
 #row {
     display: flex;
     flex-flow: row wrap;
-    padding-top: 90px;
 }
 #container {
     flex: 0 0 80%;
@@ -104,7 +103,7 @@ nav ul li:hover a {
     position: relative;
 }
 /* サイドバー */
-.auth_username{
+.auth_username {
     margin: 20px 0;
 }
 .btn {
@@ -114,17 +113,14 @@ nav ul li:hover a {
     text-align: center;
     display: inline-block;
     margin: 20px 0;
-}
-.btn a{
     color: #fff;
 }
-
 
 
 /* トップページ */
 
 /* 投稿一覧 */
-.post{
+.post {
     padding: 15px 0;
 }
 .archives a img {
@@ -142,8 +138,11 @@ nav ul li:hover a {
     min-width: 80%;
     border: none;
 }
-.post-username{
+.post-username {
     margin-bottom: 15px;
+}
+.post-archive{
+    flex-grow: 1;
 }
 
 /* モーダルウィンドウ */
@@ -177,3 +176,27 @@ nav ul li:hover a {
     transform: translate(-50%, -50%);
     width: 60%;
 }
+
+/* 検索画面 */
+
+.search_post {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+.search_post_username{
+    font-size: 25px;
+    
+}
+.search_post img {
+    padding-right: 20px;
+}
+
+
+.unfollow_btn {
+    background-color: #d32e2e;
+}
+.follow_btn {
+    background-color: #3b5ce0;
+}
+

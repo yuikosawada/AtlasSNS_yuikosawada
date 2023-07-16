@@ -30,7 +30,7 @@
 
 
             <!-- 投稿者名・投稿文 -->
-            <div class="f-d-column">
+            <div class="f-d-column post-archive">
                 <p class="post-username">{{$post->username}}</p>
                 <p class="post-article"> {!! nl2br(e($post->post)) !!}
                 </p>
