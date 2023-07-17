@@ -20,11 +20,20 @@
 <div class="search_post">
     <img src="{{asset('storage/image/'.$user->images)}}" width="40" height="40" alt="">
     <p class="search_post_username">{{$user->username}}</p>
+    <!-- フォローしているかの判定 -->
+    @if (auth()->user()->isFollowing($user->id))
+    <form action="{{ route('unfollow', ['userId' => $user->id]) }}" method="POST">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
 
-    @if(!($isFollow))
-    <a href="{{ route('follow', ['userId' => $user->id]) }}" class="btn follow_btn">フォローする</a>
+        <button type="submit" class="btn btn-danger">フォロー解除</button>
+    </form>
     @else
-    <a href="{{ route('unfollow', ['userId' => $user->id]) }}" class="btn unfollow_btn">フォロー解除</a>
+    <form action="{{ route('follow', ['userId' => $user->id]) }}" method="POST">
+        {{ csrf_field() }}
+
+        <button type="submit" class="btn btn-primary">フォローする</button>
+    </form>
     @endif
 
 </div>

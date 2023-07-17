@@ -65,11 +65,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/post/{id}/delete', 'PostsController@delete_post');
 
 
-    Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
+    // Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 
-    // Route::post('/follow-list', 'FollowsController@follow_list');
-    // Route::get('/follow-list', 'FollowsController@show');
-    // Route::post('/search', 'FollowsController@show');
-    Route::get('/follow/{userId}', 'FollowsController@follow')->name('follow');
-    Route::get('/unfollow/{userId}', 'FollowsController@unfollow')->name('unfollow');
+
+    // Route::get('/follow/{userId}', 'UsersController@follow')->name('follow');
+    // Route::get('/unfollow/{userId}', 'UsersController@unfollow')->name('unfollow');
+    
+    // フォロー/フォロー解除
+    Route::post('users/{userId}/follow', 'UsersController@follow')->name('follow');
+    Route::delete('users/{userId}/unfollow', 'UsersController@unfollow')->name('unfollow');
+
 });

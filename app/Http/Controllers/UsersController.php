@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\User;
 use Auth;
 // use phpDocumentor\Reflection\Types\Nullable;
 use Validator;
+use App\User;
+
 
 
 class UsersController extends Controller
@@ -16,7 +17,7 @@ class UsersController extends Controller
     //     return view('users.profile');
     // }
 
-    
+
 
 
     // ユーザー登録
@@ -87,5 +88,78 @@ class UsersController extends Controller
         };
 
         return redirect('/top');
+    }
+
+
+
+    // //フォローする
+    // public function follow(User $user, $userId)
+    // {
+    //     // 自分のユーザーIDを取得
+    //     $loggedInUser = auth()->user();
+    //     $loggedInUserId = auth()->user()->id;
+    //     // フォローしたい人のユーザーIDを元にユーザーを取得
+    //     $followedUser = User::find($userId);
+    //     $followedUserId = $followedUser->id;
+    //     // フォローしているか
+    //     $is_following = $loggedInUser->isFollowing($user->id);
+    //     if (!$is_following) {
+    //         // フォローしていなければフォローする
+    //         // フォローデータをデータベースに登録
+    //         Follow::create([
+    //             'following_id' => $loggedInUserId,
+    //             'followed_id' => $followedUserId,
+    //         ]);
+    //     }
+
+    //     return back(); // フォロー後に元のページにリダイレクト
+    // }
+
+    // //フォロー解除
+    // public function unfollow(User $user, $userId)
+    // {
+    //     $loggedInUser = auth()->user();
+    //     $loggedInUserId = auth()->user()->id;
+    //     // フォローしているか
+    //     $is_following = $loggedInUser->isFollowing($user->id);
+    //     if ($is_following) {
+    //         // フォローしていればフォローを解除する
+    //         Follow::where([
+    //             ['followed_id', '=', $userId],
+    //             ['following_id', '=', $loggedInUserId],
+    //         ])
+    //             ->delete();
+    //     }
+    //     return back();
+    // }
+
+
+
+
+    // フォロー
+    public function follow(User $user)
+    {
+        
+        $follower = auth()->user();
+        // フォローしているか
+        $is_following = $follower->isFollowing($user->id);
+        if (!$is_following) {
+            // フォローしていなければフォローする
+            $follower->follow($user->id);
+            return back();
+        }
+    }
+
+    // フォロー解除
+    public function unfollow(User $user)
+    {
+        $follower = auth()->user();
+        // フォローしているか
+        $is_following = $follower->isFollowing($user->id);
+        if ($is_following) {
+            // フォローしていればフォローを解除する
+            $follower->unfollow($user->id);
+            return back();
+        }
     }
 }
