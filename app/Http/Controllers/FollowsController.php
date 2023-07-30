@@ -11,26 +11,6 @@ use Auth;
 
 class FollowsController extends Controller
 {
-
-    // public function show($user)
-    // {
-    //     // 自分のユーザーIDを取得
-    //     $loggedInUserId = auth()->user()->id;
-    //     // すでにフォローしているユーザーを取得
-    //     $followedUser = $user; // 修正点: $user をそのまま使用する
-    //     $followedUserId = $followedUser->id;
-
-    //     // すでにフォローしている状態
-    //     $isFollow = Follow::where([
-    //         'following_id' => $loggedInUserId,
-    //         'followed_id' => $followedUserId,
-    //     ])->exists(); // 修正点: exists() メソッドを使用して結果をブール値として取得
-
-    //     return redirect('/search');
-    // }
-
-
-
     //フォローする
     public function follow($userId)
     {
@@ -78,7 +58,36 @@ class FollowsController extends Controller
 
     // フォローリスト
 
-    public function followList(){
+    public function followList_show()
+    {
+        $loggedInUserId = auth()->user()->id;
+        $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
+        $follows = User::whereIn('id',$followedIds)->get();
+        $posts = Post::whereIn('user_id', $followedIds)->get();
+        $datas = $posts->concat($follows);
 
+        // dd($follows);
+
+
+        // return view('follows.followList')->with(['datas' => $datas]);
+        return view('follows.followList')->with(['follows' => $follows, 'posts'=>$posts]);
+    }
+
+    public function followList($userId)
+    {
+        // フォローしているか
+        // $follower = auth()->user();
+        // $is_following = $follower->isFollowing($userId);
+
+        //     // フォローしていなかったら下記のフォロー処理を実行
+        //     if ($is_following) {
+        //         $follows = $is_following->user();
+        //         $posts = $is_following->user();
+        //     }
+        //     return redirect('/follow-list', compact('posts', 'follows')); // フォロー後に元のページにリダイレクト
+        $follows = Follow::where([
+            ['followed_id', '=', $userId],
+            ['following_id', '=', $loggedInUserId],
+        ])->get();
     }
 }
