@@ -2,14 +2,15 @@
 
 @section('content')
 
-{!! Form::open (['url'=>'/search','method'=>'GET']) !!}
+{!! Form::open (['url'=>'/search','method'=>'GET','class'=>'search_container']) !!}
 {!! Form::hidden('search', 'keyword') !!}
 
 
-{{Form::label('search','ユーザー名')}}
-{{ Form::text('keyword',null,['class'=>'input', 'placeholder' => '検索キーワード']) }}
+{{ Form::text('keyword',null,['class'=>'input search_box', 'placeholder' => 'ユーザー名']) }}
 
-{{Form::submit('検索')}}
+<img class="search_button" src="{{asset('storage/image/search.png')}}" width="50" height="50">
+
+{{Form::submit()}}
 {!! Form::close(); !!}
 
 @if(!empty($keyword))
@@ -18,13 +19,14 @@
 <!-- 自分以外の登録ユーザーがすべて表示される -->
 @foreach($users as $user)
 <div class="search_post">
-    <img src="{{asset('storage/image/'.$user->images)}}" width="40" height="40" alt="">
-    <p class="search_post_username">{{$user->username}}</p>
-
-    @if(!($isFollow))
-    <a href="{{ route('follow', ['userId' => $user->id]) }}" class="btn follow_btn">フォローする</a>
-    @else
+    <div class="flex">
+        <img src="{{asset('storage/image/'.$user->images)}}" width="40" height="40" alt="">
+        <p class="search_post_username">{{$user->username}}</p>
+    </div>
+    @if (auth()->user()->isFollowing($user->id))
     <a href="{{ route('unfollow', ['userId' => $user->id]) }}" class="btn unfollow_btn">フォロー解除</a>
+    @else
+    <a href="{{ route('follow', ['userId' => $user->id]) }}" class="btn follow_btn">フォローする</a>
     @endif
 
 </div>

@@ -32,12 +32,21 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Post');
     }
-    // public function follow()
-    // {
-    //     return $this->belongsToMany('App\User', 'follows', 'following_id', 'followed_id');
-    // }
-    // public function follower()
-    // {
-    //     return $this->belongsToMany('App\User', 'follows', 'followed_id', 'following_id');
-    // }
+
+    // フォローしているか
+    // $user_id はログイン中のユーザー
+    public function isFollowing(Int $user_id)
+    {
+        return (bool) $this->follows()->where('followed_id', $user_id)->first();
+    }
+
+    // 多対多のリレーション
+    public function follows()
+    {
+        return $this->belongsToMany('App\User', 'follows', 'following_id', 'followed_id');
+    }
+    public function follower()
+    {
+        return $this->belongsToMany('App\User', 'follows', 'followed_id', 'following_id');
+    }
 }

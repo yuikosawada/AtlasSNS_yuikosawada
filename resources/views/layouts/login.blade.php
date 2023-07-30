@@ -49,7 +49,7 @@
             @yield('content')
         </div>
         <div id="side-bar">
-            <div id="confirm">
+            <div id="confirm" class="side-bar">
                 <p class="auth_username">{{Auth::user()->username }}さんの</p>
                 <div class="flex">
                     <p>フォロー数</p>
@@ -63,7 +63,7 @@
                 </div>
                 <a href="{{url('/follower-list')}}" class="btn">フォロワーリスト</a>
             </div>
-            <a href="{{url('/search')}}" class="btn">ユーザー検索</a>
+            <a href="{{url('/search')}}" class="btn search-btn" >ユーザー検索</a>
         </div>
     </div>
     <footer>
