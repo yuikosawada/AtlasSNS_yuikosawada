@@ -13,6 +13,7 @@
     @foreach($followingPosts as $followingPost)
     <div class="post flex">
         <!-- 投稿者アイコン -->
+        <img src="{{asset('storage/image/'.$followingPost->images)}}" alt="">
 
         <!-- 投稿者名・投稿文 -->
         <div class="f-d-column">
