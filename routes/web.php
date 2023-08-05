@@ -69,6 +69,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/follow/{userId}', 'FollowsController@follow')->name('follow');
     Route::get('/unfollow/{userId}', 'FollowsController@unfollow')->name('unfollow');
    
+    // フォローリスト
+    // Route::get('/follow-list', 'FollowsController@index');
     Route::get('/follow-list','FollowsController@followList_show');
     Route::post('/follow-list','FollowsController@followList');
+    // フォロワーリスト
+    Route::get('/follower-list','FollowsController@followerList_show');
+    Route::post('/follower-list','FollowsController@followerList');
 });

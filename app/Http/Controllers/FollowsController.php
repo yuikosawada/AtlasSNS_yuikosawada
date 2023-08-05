@@ -57,37 +57,26 @@ class FollowsController extends Controller
     }
 
     // フォローリスト
-
     public function followList_show()
     {
         $loggedInUserId = auth()->user()->id;
         $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
-        $follows = User::whereIn('id',$followedIds)->get();
-        $posts = Post::whereIn('user_id', $followedIds)->get();
-        $datas = $posts->concat($follows);
+        $follows = User::whereIn('id', $followedIds)->get();
 
-        // dd($follows);
+        // FollowsテーブルとPostsテーブルの結合クエリを作成
+        $followsPostsQuery = Follow::join('posts', 'follows.followed_id', '=', 'posts.user_id')
+            ->join('users', 'follows.followed_id', '=', 'users.id')
+            ->where('follows.following_id', $loggedInUserId)
+            ->select('posts.*', 'users.*');
 
+        // 結合した結果を取得
+        $followingPosts = $followsPostsQuery->get();
 
-        // return view('follows.followList')->with(['datas' => $datas]);
-        return view('follows.followList')->with(['follows' => $follows, 'posts'=>$posts]);
+        return view('follows.followList')->with(['follows' => $follows, 'followingPosts' => $followingPosts]);
     }
 
-    public function followList($userId)
-    {
-        // フォローしているか
-        // $follower = auth()->user();
-        // $is_following = $follower->isFollowing($userId);
+  
 
-        //     // フォローしていなかったら下記のフォロー処理を実行
-        //     if ($is_following) {
-        //         $follows = $is_following->user();
-        //         $posts = $is_following->user();
-        //     }
-        //     return redirect('/follow-list', compact('posts', 'follows')); // フォロー後に元のページにリダイレクト
-        $follows = Follow::where([
-            ['followed_id', '=', $userId],
-            ['following_id', '=', $loggedInUserId],
-        ])->get();
-    }
+
+
 }
