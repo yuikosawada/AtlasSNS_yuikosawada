@@ -30,7 +30,9 @@ class FollowsController extends Controller
                 'followed_id' => $followedUserId,
             ]);
 
-            return redirect('/search'); // フォロー後に元のページにリダイレクト
+            // return redirect('/search'); // フォロー後に元のページにリダイレクト
+            return back();
+
         }
     }
 
@@ -51,7 +53,8 @@ class FollowsController extends Controller
             ])
                 ->delete();
         }
-        return redirect('/search');
+        // return redirect('/search');
+        return back();
     }
 
     // フォローリスト
@@ -94,4 +97,6 @@ class FollowsController extends Controller
 
         return view('follows.followerList')->with(['followers' => $followers, 'followerPosts' => $followerPosts]);
     }
+
+  
 }

@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     //ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る
 
     Route::get('/top', 'PostsController@index');
+    Route::post('/top', 'FollowsController@followsCounts');
 
     Route::get('/profile', 'UsersController@profile');
     Route::post('/profile', 'UsersController@profile');
@@ -58,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
 
-    Route::post('/top', 'PostsController@update_post');
+    
     Route::post('/post/update', 'PostsController@update_post');
     Route::get('/post/{id}/delete', 'PostsController@delete_post');
 
@@ -76,4 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
     // フォロワーリスト
     Route::get('/follower-list','FollowsController@followerList_show');
     Route::post('/follower-list','FollowsController@followerList');
+
+    //   相手のプロフィール
+    Route::get('/post/{user_id}', 'PostsController@othersProfile');
 });

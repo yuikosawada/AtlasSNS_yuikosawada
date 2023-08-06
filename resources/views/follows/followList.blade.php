@@ -5,7 +5,8 @@
 <section>
     <div class="follow-list ">
         @foreach($follows as $follow)
-        <img src="{{asset('storage/image/'.$follow->images)}}" alt="">
+        <a href="/post/{{$follow->id}}">
+            <img src="{{asset('storage/image/'.$follow->images)}}" alt=""></a>
         @endforeach
     </div>
 
@@ -13,7 +14,7 @@
     @foreach($followingPosts as $followingPost)
     <div class="post flex">
         <!-- 投稿者アイコン -->
-        <img src="{{asset('storage/image/'.$followingPost->images)}}" alt="">
+        <a href="/post/{{$followingPost->user_id}}"><img src="{{asset('storage/image/'.$followingPost->images)}}" alt=""></a>
 
         <!-- 投稿者名・投稿文 -->
         <div class="f-d-column">

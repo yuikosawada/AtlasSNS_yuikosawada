@@ -11,13 +11,6 @@ use Validator;
 
 class UsersController extends Controller
 {
-    //
-    // public function profile(){
-    //     return view('users.profile');
-    // }
-
-    
-
 
     // ユーザー登録
     public function create(Request $request)

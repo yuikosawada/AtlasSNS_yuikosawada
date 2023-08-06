@@ -57,4 +57,16 @@ class PostsController extends Controller
 
         return redirect('/top');
     }
+
+
+
+    // 相手のプロフィール＆投稿一覧
+    public function othersProfile($user_id)
+    {
+        $otherUsers =  User::with('posts')->where('id', $user_id)->get();
+
+        return view('users.othersProfile', compact('otherUsers'));
+    }
+
+    
 }
