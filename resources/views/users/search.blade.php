@@ -5,17 +5,16 @@
 {!! Form::open (['url'=>'/search','method'=>'GET','class'=>'search_container']) !!}
 {!! Form::hidden('search', 'keyword') !!}
 
-
 {{ Form::text('keyword',null,['class'=>'input search_box', 'placeholder' => 'ユーザー名']) }}
 
-<img class="search_button" src="{{asset('storage/image/search.png')}}" width="50" height="50">
+{!!Form::image('storage/image/search.png','検索',['class'=>'search_button'])!!}
+@if(!empty($keyword))
+<p class="keyword">検索ワード：{{$keyword}}</p>
+@endif
 
-{{Form::submit()}}
 {!! Form::close(); !!}
 
-@if(!empty($keyword))
-<p>検索ワード：{{$keyword}}</p>
-@endif
+
 <!-- 自分以外の登録ユーザーがすべて表示される -->
 @foreach($users as $user)
 <div class="search_post">

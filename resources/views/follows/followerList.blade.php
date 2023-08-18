@@ -3,10 +3,11 @@
 @section('content')
 
 <section>
-    <div class="follow-list ">
+    <div class="flex follower_list">
+    <h2>Follower List</h2>
         @foreach($followers as $follower)
         <a href="/post/{{$follower->id}}">
-            <img src="{{asset('storage/image/'.$follower->images)}}" alt=""></a>
+            <img src="{{asset('storage/image/'.$follower->images)}}" class="follower_list_img" alt=""></a>
         @endforeach
     </div>
 
@@ -15,11 +16,11 @@
     <div class="post flex">
         <!-- 投稿者アイコン -->
         <a href="/post/{{$followerPost->user_id}}">
-            <img src="{{asset('storage/image/'.$followerPost->images)}}" alt="">
+            <img src="{{asset('storage/image/'.$followerPost->images)}}" class="follower_list_archive_img" alt="">
         </a>
 
         <!-- 投稿者名・投稿文 -->
-        <div class="f-d-column">
+        <div class="f-d-column post-archive">
             <p class="post-username">
                 {{$followerPost->username}}
             </p>
@@ -28,8 +29,8 @@
             </p>
         </div>
         <!--投稿時間 -->
-        <div class="f-d-column">
-            <p>
+        <div class="flex j-c-spacebetween f-d-column post_tine_btn">
+            <p class="post-created_at">
                 {{$followerPost->created_at}}
             </p>
         </div>

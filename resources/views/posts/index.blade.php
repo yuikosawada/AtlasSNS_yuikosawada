@@ -14,8 +14,7 @@
 
 
         {{Form::textarea('new_post_content', null, ['class' => 'new_post_content', 'id' => 'new_post_content', 'placeholder' => '投稿内容を入力してください。', 'rows' => '3'])}}
-        {{Form::submit('投稿')}}
-
+        {!!Form::image('storage/image/post.png','投稿',['class'=>'post_submit'])!!}
 
         {!!Form::close();!!}
 
