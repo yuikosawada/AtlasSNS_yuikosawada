@@ -35,18 +35,20 @@
             {{Form::label('image','icon image')}}
             {{Form::file('image',['class'=>'input'])}}
         </div>
-        {{Form::submit('更新')}}
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="alert">
+                @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+        {{Form::submit('更新',['class'=>'update_btn'])}}
     </div>
+
 </div>
-@if($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach($errors->all() as $error)
-        <li>{{$error}}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+
 
 {!!Form::close();!!}
 @endsection
