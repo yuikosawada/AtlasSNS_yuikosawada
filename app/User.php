@@ -31,44 +31,26 @@ class User extends Authenticatable
     // リレーション
     public function posts()
     {
-        return $this->hasMany('App\Post');
+        // return $this->hasMany('App\Post');
+        return $this->hasMany(Post::class);
+
     }
 
-    public function followers()
+    // フォローしているか
+    // $user_id はログイン中のユーザー
+    public function isFollowing(Int $user_id)
     {
-        return $this->belongsToMany(self::class, 'follows', 'followed_id', 'following_id');
+        return (bool) $this->follows()->where('followed_id', $user_id)->first();
     }
 
+    // 多対多のリレーション
     public function follows()
     {
-        return $this->belongsToMany(self::class, 'follows', 'following_id', 'followed_id');
+        return $this->belongsToMany('App\User', 'follows', 'following_id', 'followed_id');
     }
 
-
-
-
-        // フォローする
-        public function follow($userId) 
-        {
-            return $this->follows()->attach($userId);
-        }
-    
-        // フォロー解除する
-        public function unfollow($userId)
-        {
-            return $this->follows()->detach($userId);
-        }
-    
-        // フォローしているか
-        public function isFollowing($userId) 
-        {
-            return (boolean) $this->follows()->where('followed_id', $userId)->first(['followed_id']);
-        }
-    
-        // フォローされているか
-        public function isFollowed($userId) 
-        {
-            return (boolean) $this->followers()->where('following_id', $userId)->first(['following_id']);
-        }
-    
+    public function follower()
+    {
+        return $this->belongsToMany('App\User', 'follows', 'followed_id', 'following_id');
+    }
 }

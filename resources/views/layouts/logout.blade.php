@@ -27,7 +27,7 @@
     <header>
       <h1>
         <a href="/top">
-          <img class="login_atlas" src="images/atlas.png">
+          <img class="login_atlas" src="storage/image/atlas.png">
         </a>
       </h1>
       <p class="login_subttl">Social Network Service</p>

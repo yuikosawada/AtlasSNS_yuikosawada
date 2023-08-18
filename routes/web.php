@@ -43,6 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
     //ログイン認証が必要な機能の部分（ログインしてない人に見せたくないものや、使わせたくない機能）は全部この中に入る
 
     Route::get('/top', 'PostsController@index');
+    Route::post('/top', 'FollowsController@followsCounts');
 
     Route::get('/profile', 'UsersController@profile');
     Route::post('/profile', 'UsersController@profile');
@@ -50,17 +51,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/search', 'App\Http\Controllers\SearchController@search')->name('search');
 
-    // Route::get('/search', 'SearchController@search');
     Route::get('/search', 'SearchController@search');
     Route::post('/search', 'SearchController@search');
-    // Route::post('/search', 'SearchController@search_index');
     Route::post('/search', 'SearchController@show_post');
 
 
     Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
 
-    Route::post('/top', 'PostsController@update_post');
+    
     Route::post('/post/update', 'PostsController@update_post');
     Route::get('/post/{id}/delete', 'PostsController@delete_post');
 
@@ -75,4 +74,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('users/{userId}/follow', 'UsersController@follow')->name('follow');
     Route::delete('users/{userId}/unfollow', 'UsersController@unfollow')->name('unfollow');
 
+  
+    Route::get('/follow/{userId}', 'FollowsController@follow')->name('follow');
+    Route::get('/unfollow/{userId}', 'FollowsController@unfollow')->name('unfollow');
+   
+    // フォローリスト
+    // Route::get('/follow-list', 'FollowsController@index');
+    Route::get('/follow-list','FollowsController@followList_show');
+    Route::post('/follow-list','FollowsController@followList');
+    // フォロワーリスト
+    Route::get('/follower-list','FollowsController@followerList_show');
+    Route::post('/follower-list','FollowsController@followerList');
+
+    //   相手のプロフィール
+    Route::get('/post/{user_id}', 'PostsController@othersProfile');
 });

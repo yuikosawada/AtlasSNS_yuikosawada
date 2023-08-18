@@ -14,25 +14,33 @@
 
 <!-- 適切なURLを入力してください -->
 <!-- action属性でどこに送るかをファザードバージョンで記述 -->
-{!! Form::open(['url' => '/register']) !!}
+{!! Form::open(['url' => '/register','class'=>'register-form']) !!}
 
-<h2>新規ユーザー登録</h2>
+<h2 class="register-welcome">新規ユーザー登録</h2>
 
-{{ Form::label('ユーザー名') }}
-{{ Form::text('username',null,['class' => 'input']) }}
+<div class="register-form-username">
+    {{ Form::label('ユーザー名','user name') }}
+    {{ Form::text('username',null,['class' => 'input']) }}
+</div>
 
-{{ Form::label('メールアドレス') }}
-{{ Form::text('mail',null,['class' => 'input']) }}
+<div class="register-form-mail">
+    {{ Form::label('メールアドレス','mail adress') }}
+    {{ Form::text('mail',null,['class' => 'input']) }}
+</div>
 
-{{ Form::label('パスワード') }}
-{{ Form::text('password',null,['class' => 'input']) }}
+<div class="register-form-pw">
+    {{ Form::label('パスワード','password') }}
+    {{ Form::text('password',null,['class' => 'input']) }}
+</div>
 
-{{ Form::label('パスワード確認') }}
-{{ Form::text('password_confirmation',null,['class' => 'input']) }}
+<div class="register-form-pw">
+    {{ Form::label('パスワード確認','password comfirm') }}
+    {{ Form::text('password_confirmation',null,['class' => 'input']) }}
+</div>
 
-{{ Form::submit('登録') }}
+{{ Form::submit('REGISTER',['class'=>'register-btn']) }}
 
-<p><a href="/login">ログイン画面へ戻る</a></p>
+<p><a href="/login" class="to-login">ログイン画面へ戻る</a></p>
 
 {!! Form::close() !!}
 

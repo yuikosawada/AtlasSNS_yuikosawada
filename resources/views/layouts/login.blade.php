@@ -25,13 +25,13 @@
 <body>
     <header>
         <div id="head">
-            <h1><a href="/top"><img class="logo" src="images/atlas.png"></a></h1>
+            <h1><a href="/top"><img class="logo" src="storage/image/atlas.png"></a></h1>
             <div id="" class="user">
                 <p>{{Auth::user()->username }}さん</p>
-                <img class="nav-open active" src="images/arrow.png">
+                <span class="arrow nav-open"></span>
                 <!-- 画像が保存される場所：storage/app/public -->
                 <!-- 画像を取得する場所：public/storage -->
-                <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" width="25" height="25">
+                <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" width="40" height="40">
 
 
             </div>
@@ -49,21 +49,21 @@
             @yield('content')
         </div>
         <div id="side-bar">
-            <div id="confirm">
+            <div id="confirm" class="side-bar">
                 <p class="auth_username">{{Auth::user()->username }}さんの</p>
-                <div class="flex">
+                <div class="flex follow_follower_num">
                     <p>フォロー数</p>
-                    <p>〇〇名</p>
+                    <p>{{ Auth::user()->follows()->get()->count()}}名</p>
                 </div>
 
                 <a href="{{url('/follow-list')}}" class="btn">フォローリスト</a>
-                <div class="flex">
+                <div class="flex follow_follower_num">
                     <p>フォロワー数</p>
-                    <p>〇〇名</p>
+                    <p>{{ Auth::user()->follower()->get()->count()}}名</p>
                 </div>
                 <a href="{{url('/follower-list')}}" class="btn">フォロワーリスト</a>
             </div>
-            <a href="{{url('/search')}}" class="btn">ユーザー検索</a>
+            <a href="{{url('/search')}}" class="btn search-btn">ユーザー検索</a>
         </div>
     </div>
     <footer>
