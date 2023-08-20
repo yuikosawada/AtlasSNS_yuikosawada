@@ -25,15 +25,21 @@ class SearchController extends Controller
         $query = User::query();
         // もしキーワードが入力されてたら
         if (!empty($keyword)) {
-            $query->where('username', 'like', '%' . $keyword . '%')->where('id', '!=', Auth::id())->get();
+            // $query->where('username', 'like', '%' . $keyword . '%')->where('id', '!=', Auth::id())->get();
+            $query->where('username', 'like', '%' . $keyword . '%')
+            ->where('username', '!=', Auth::user()->username)
+            ->get();
             $users = $query->get();
+     
             return view('users.search', [
                 'users' => $users,
                 'keyword' => $keyword,
             ]);
             // もし入力されてなかったら全て表示
         } else {
-            $users = User::where('id', '!=', Auth::id())->get();
+            $users = User::where('id', '!=', Auth::id())
+            ->where('username', '!=', Auth::user()->username)
+            ->get();
             return view('users.search', [
                 'users' => $users,
             ]);

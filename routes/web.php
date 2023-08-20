@@ -55,20 +55,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/search', 'SearchController@search');
     Route::post('/search', 'SearchController@show_post');
 
-
     Route::post('/posts', 'PostsController@store_post');
     Route::get('/top', 'PostsController@index');
 
-    
     Route::post('/post/update', 'PostsController@update_post');
     Route::get('/post/{id}/delete', 'PostsController@delete_post');
-
-
-    // Route::post('/profile/follow', [ProfileController::class, 'follow'])->name('profile.follow');
-
-
-    // Route::get('/follow/{userId}', 'UsersController@follow')->name('follow');
-    // Route::get('/unfollow/{userId}', 'UsersController@unfollow')->name('unfollow');
     
     // フォロー/フォロー解除
     Route::post('users/{userId}/follow', 'UsersController@follow')->name('follow');
@@ -79,7 +70,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/unfollow/{userId}', 'FollowsController@unfollow')->name('unfollow');
    
     // フォローリスト
-    // Route::get('/follow-list', 'FollowsController@index');
     Route::get('/follow-list','FollowsController@followList_show');
     Route::post('/follow-list','FollowsController@followList');
     // フォロワーリスト

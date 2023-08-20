@@ -28,11 +28,13 @@ class PostsController extends Controller
     public function store_post(Request $request)
     {
         // 新規投稿の保存
-        $post = new Post();
-        $data = Post::create([
-            'post' => $request->input('new_post_content'),
-            'user_id' => Auth::id(),
-        ]);
+        $newPost = $request->input('new_post_content');
+        if ($newPost) {
+             Post::create([
+                'post' => $request->input('new_post_content'),
+                'user_id' => Auth::id(),
+            ]);
+        }
         return redirect('/top');
     }
 
@@ -67,6 +69,4 @@ class PostsController extends Controller
 
         return view('users.othersProfile', compact('otherUsers'));
     }
-
-    
 }
