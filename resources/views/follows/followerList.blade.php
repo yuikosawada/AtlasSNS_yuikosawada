@@ -4,10 +4,15 @@
 
 <section>
     <div class="flex follower_list">
-    <h2>Follower List</h2>
+        <h2>Follower List</h2>
         @foreach($followers as $follower)
         <a href="/post/{{$follower->id}}">
-            <img src="{{asset('storage/image/'.$follower->images)}}" class="follower_list_img" alt=""></a>
+            @if($follower->images == 'no-image.png')
+            <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+            @else
+            <img src="{{asset('storage/image/'.$follower->images)}}" class="follower_list_img" alt="">
+            @endif
+        </a>
         @endforeach
     </div>
 
@@ -16,7 +21,12 @@
     <div class="post flex">
         <!-- 投稿者アイコン -->
         <a href="/post/{{$followerPost->user_id}}">
+            @if($followerPost->images == 'no-image.png')
+            <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+            @else
             <img src="{{asset('storage/image/'.$followerPost->images)}}" class="follower_list_archive_img" alt="">
+            @endif
+
         </a>
 
         <!-- 投稿者名・投稿文 -->

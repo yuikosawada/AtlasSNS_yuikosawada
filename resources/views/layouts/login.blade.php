@@ -25,7 +25,7 @@
 <body>
     <header>
         <div id="head">
-            <h1><a href="/top"><img class="logo" src="storage/image/atlas.png"></a></h1>
+            <h1><a href="/top"><img class="logo" src="{{asset('images/atlas.png')}}"></a></h1>
             <div id="" class="user">
                 <p>{{Auth::user()->username }}さん</p>
                 <span class="arrow nav-open"></span>

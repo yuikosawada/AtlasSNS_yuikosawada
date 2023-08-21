@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 //追加
 use App\Post;
 use App\User;
-// use App\Follow;
+use App\Follow;
 // use Illuminate\Support\Facades\Auth;
 use Auth;
 
@@ -15,13 +15,23 @@ class PostsController extends Controller
     // 投稿一覧表示
     public function index(Post $posts)
     {
-        // postsフォルダのindex.bladeを表示
-        $posts = User::select('users.username', 'users.images', 'posts.id', 'posts.user_id', 'posts.post', 'posts.created_at')
-            ->join('posts', 'posts.user_id', '=', 'users.id')
-            ->orderBy('created_at', 'desc')
-            ->get();
 
-        return view('posts.index', compact('posts'));
+        $loggedInUserId = auth()->user()->id;
+        // 自分にフォローされてるユーザーたち（フォローしてる人たち）
+        $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
+        $follows = User::whereIn('id', $followedIds)->get();
+
+        // FollowsテーブルとPostsテーブルの結合クエリを作成
+        $followsPostsQuery = Follow::join('posts', 'follows.followed_id', '=', 'posts.user_id')
+            ->join('users', 'follows.followed_id', '=', 'users.id')
+            ->where('follows.following_id', $loggedInUserId)
+            ->select('posts.*', 'users.*');
+
+
+        // 結合した結果を取得
+        $posts = $followsPostsQuery->get();
+
+        return view('posts.index')->with(['follows' => $follows, 'posts' => $posts]);
     }
 
     // 新規投稿
@@ -30,7 +40,7 @@ class PostsController extends Controller
         // 新規投稿の保存
         $newPost = $request->input('new_post_content');
         if ($newPost) {
-             Post::create([
+            Post::create([
                 'post' => $request->input('new_post_content'),
                 'user_id' => Auth::id(),
             ]);

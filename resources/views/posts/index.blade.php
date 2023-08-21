@@ -14,7 +14,7 @@
 
 
         {{Form::textarea('new_post_content', null, ['class' => 'new_post_content', 'id' => 'new_post_content', 'placeholder' => '投稿内容を入力してください。', 'rows' => '3'])}}
-        {!!Form::image('storage/image/post.png','投稿',['class'=>'post_submit'])!!}
+        {!!Form::image('images/post.png','投稿',['class'=>'post_submit'])!!}
 
         {!!Form::close();!!}
 
@@ -25,7 +25,11 @@
     @foreach($posts as $post)
     <div class="post flex">
         <!-- 投稿者アイコン -->
+        @if($post->images == 'no-image.png')
+        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        @else
         <img class="" src="{{asset('storage/image/'.$post->images)}}" width="50" height="50">
+        @endif
 
 
         <!-- 投稿者名・投稿文 -->

@@ -7,7 +7,7 @@
 
 {{ Form::text('keyword',null,['class'=>'input search_box', 'placeholder' => 'ユーザー名']) }}
 
-{!!Form::image('storage/image/search.png','検索',['class'=>'search_button'])!!}
+{!!Form::image('images/search.png','検索',['class'=>'search_button'])!!}
 @if(!empty($keyword))
 <p class="keyword">検索ワード：{{$keyword}}</p>
 @endif

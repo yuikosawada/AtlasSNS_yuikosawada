@@ -58,19 +58,20 @@ class FollowsController extends Controller
     }
 
     // フォローリスト
-    public function followList_show()
-    {
-        $loggedInUserId = auth()->user()->id;
-        // 自分にフォローされてるユーザーたち（フォローしてる人たち）
-        $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
-        $follows = User::whereIn('id', $followedIds)->get();
-
-        // FollowsテーブルとPostsテーブルの結合クエリを作成
-        $followsPostsQuery = Follow::join('posts', 'follows.followed_id', '=', 'posts.user_id')
+        public function followList_show()
+        {
+            $loggedInUserId = auth()->user()->id;
+            // 自分にフォローされてるユーザーたち（フォローしてる人たち）
+            $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
+            $follows = User::whereIn('id', $followedIds)->get();
+            
+            // FollowsテーブルとPostsテーブルの結合クエリを作成
+            $followsPostsQuery = Follow::join('posts', 'follows.followed_id', '=', 'posts.user_id')
             ->join('users', 'follows.followed_id', '=', 'users.id')
             ->where('follows.following_id', $loggedInUserId)
             ->select('posts.*', 'users.*');
-
+            
+        
         // 結合した結果を取得
         $followingPosts = $followsPostsQuery->get();
 

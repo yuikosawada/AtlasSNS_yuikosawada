@@ -5,7 +5,12 @@
 <section>
     <div class="others_list flex">
         @foreach($otherUsers as $otherUser)
+        @if($otherUser->images == 'no-image.png')
+        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        @else
         <img src="{{asset('storage/image/'.$otherUser->images)}}" class="others_list_img" alt="">
+        @endif
+
         <div class="others_profile">
             <div class="flex">
                 <dt>name</dt>
@@ -30,7 +35,11 @@
     @foreach ($otherUser->posts as $post)
     <div class="post flex">
         <!-- 投稿者アイコン -->
+        @if($otherUser->images == 'no-image.png')
+        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        @else
         <img src="{{asset('storage/image/'.$otherUser->images)}}" class="others_list_archive_img" alt="">
+        @endif
 
         <!-- 投稿者名・投稿文 -->
         <div class="f-d-column post-archive">
