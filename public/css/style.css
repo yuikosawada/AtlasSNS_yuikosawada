@@ -30,6 +30,11 @@ body {
     color: #ed3a50;
     text-align: center;
 }
+.icon{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
 
 /* header */
 header {
@@ -53,6 +58,7 @@ header p.login_subttl {
     height: 90px;
     align-items: center;
     background-color: #0167c5;
+    padding: 0 10px;
 }
 .arrow {
     width: 50px;

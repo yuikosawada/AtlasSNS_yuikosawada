@@ -8,9 +8,9 @@
         @foreach($followers as $follower)
         <a href="/post/{{$follower->id}}">
             @if($follower->images == 'no-image.png')
-            <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+            <img src="{{asset('images/no-image.png')}}" class="icon">
             @else
-            <img src="{{asset('storage/image/'.$follower->images)}}" class="follower_list_img" alt="">
+            <img src="{{asset('storage/image/'.$follower->images)}}" class="follower_list_img icon" alt="">
             @endif
         </a>
         @endforeach
@@ -22,7 +22,7 @@
         <!-- 投稿者アイコン -->
         <a href="/post/{{$followerPost->user_id}}">
             @if($followerPost->images == 'no-image.png')
-            <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+            <img src="{{asset('images/no-image.png')}}" class="icon">
             @else
             <img src="{{asset('storage/image/'.$followerPost->images)}}" class="follower_list_archive_img" alt="">
             @endif

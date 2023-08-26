@@ -6,8 +6,11 @@
 <section>
     <!-- 新規投稿欄 -->
     <div class="new_post p-flexed flex j-c-center">
-
-        <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" width="50" height="50">
+        @if(Auth::user()->images == 'no-image.png')
+        <img src="images/no-image.png" class="icon">
+        @else
+        <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" class="icon">
+        @endif
 
         {!! Form::open(['url' =>'/posts','method'=>'post']) !!}
         {!! Form::hidden('user_id', 'post') !!}
@@ -25,16 +28,16 @@
     @foreach($posts as $post)
     <div class="post flex">
         <!-- 投稿者アイコン -->
-        @if($post->images == 'no-image.png')
-        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        @if($post->user->images == 'no-image.png')
+        <img src="{{asset('images/no-image.png')}}" class="icon">
         @else
-        <img class="" src="{{asset('storage/image/'.$post->images)}}" width="50" height="50">
+        <img src="{{asset('storage/image/'.$post->user->images)}}" class="icon">
         @endif
 
 
         <!-- 投稿者名・投稿文 -->
         <div class="f-d-column post-archive">
-            <p class="post-username">{{$post->username}}</p>
+            <p class="post-username">{{$post->user->username}}</p>
             <p class="post-article"> {!! nl2br(e($post->post)) !!}
             </p>
         </div>

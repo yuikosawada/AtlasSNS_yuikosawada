@@ -14,24 +14,20 @@ class PostsController extends Controller
 {
     // 投稿一覧表示
     public function index(Post $posts)
-    {
-
+    {   // postsフォルダのindex.bladeを表示
+        // ログイン中のユーザーのIDを取得
         $loggedInUserId = auth()->user()->id;
-        // 自分にフォローされてるユーザーたち（フォローしてる人たち）
-        $followedIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
-        $follows = User::whereIn('id', $followedIds)->get();
+        // フォローしているユーザーのIDを取得
+        $followingUserIds = Follow::where('following_id', $loggedInUserId)->pluck('followed_id');
+        // 自分のユーザーIDも追加
+        $followingUserIds[] = $loggedInUserId;
+        // フォローしているユーザーと自分のユーザーIDに関連する投稿とユーザー情報を取得
+        $posts = Post::with('user')
+            ->whereIn('user_id', $followingUserIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        // FollowsテーブルとPostsテーブルの結合クエリを作成
-        $followsPostsQuery = Follow::join('posts', 'follows.followed_id', '=', 'posts.user_id')
-            ->join('users', 'follows.followed_id', '=', 'users.id')
-            ->where('follows.following_id', $loggedInUserId)
-            ->select('posts.*', 'users.*');
-
-
-        // 結合した結果を取得
-        $posts = $followsPostsQuery->get();
-
-        return view('posts.index')->with(['follows' => $follows, 'posts' => $posts]);
+        return view('posts.index', compact('posts'));
     }
 
     // 新規投稿

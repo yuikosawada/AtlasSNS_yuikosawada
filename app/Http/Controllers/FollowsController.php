@@ -85,7 +85,6 @@ class FollowsController extends Controller
         // フォローしてくれてるユーザーたち（フォロワーたち）
         $followerIds = Follow::where('followed_id', $loggedInUserId)->pluck('following_id');
         $followers = User::whereIn('id', $followerIds)->get();
-        // dd($followers);
         // FollowsテーブルとPostsテーブルの結合クエリを作成
         $followersPostsQuery = Follow::join('posts', 'follows.following_id', '=', 'posts.user_id')
             ->join('users', 'follows.following_id', '=', 'users.id')
@@ -94,7 +93,6 @@ class FollowsController extends Controller
 
         // 結合した結果を取得
         $followerPosts = $followersPostsQuery->get();
-
 
         return view('follows.followerList')->with(['followers' => $followers, 'followerPosts' => $followerPosts]);
     }

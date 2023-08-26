@@ -6,7 +6,7 @@
     <div class="others_list flex">
         @foreach($otherUsers as $otherUser)
         @if($otherUser->images == 'no-image.png')
-        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        <img src="{{asset('images/no-image.png')}}" class="icon">
         @else
         <img src="{{asset('storage/image/'.$otherUser->images)}}" class="others_list_img" alt="">
         @endif
@@ -36,7 +36,7 @@
     <div class="post flex">
         <!-- 投稿者アイコン -->
         @if($otherUser->images == 'no-image.png')
-        <img src="{{asset('images/no-image.png')}}" width="50" height="50">
+        <img src="{{asset('images/no-image.png')}}" class="icon">
         @else
         <img src="{{asset('storage/image/'.$otherUser->images)}}" class="others_list_archive_img" alt="">
         @endif

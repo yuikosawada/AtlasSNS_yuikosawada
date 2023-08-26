@@ -9,7 +9,11 @@
 <!-- {{ Form::text('inputタグのname属性', 'value属性デフォルト値', ['id' => 'id'])}} -->
 
 <div class="flex">
-    <img class="profile_form_img" src="{{asset('storage/image/'.Auth::user()->images)}}" width="50" height="50">
+    @if(Auth::user()->images == 'no-image.png')
+    <img src="images/no-image.png" class="icon">
+    @else
+    <img class="profile_form_img" src="{{asset('storage/image/'.Auth::user()->images)}}" class="icon">
+    @endif
 
     <div class="profile_form_contents">
         <div class="profile_form_content">{{Form::label('username','user name')}}

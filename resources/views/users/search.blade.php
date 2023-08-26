@@ -19,7 +19,11 @@
 @foreach($users as $user)
 <div class="search_post">
     <div class="flex">
+        @if($user->images == 'no-image.png')
+        <img src="{{asset('images/no-image.png')}}" class="icon">
+        @else
         <img src="{{asset('storage/image/'.$user->images)}}" width="40" height="40" alt="">
+        @endif
         <p class="search_post_username">{{$user->username}}</p>
     </div>
     @if (auth()->user()->isFollowing($user->id))

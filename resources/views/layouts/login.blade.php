@@ -31,7 +31,11 @@
                 <span class="arrow nav-open"></span>
                 <!-- 画像が保存される場所：storage/app/public -->
                 <!-- 画像を取得する場所：public/storage -->
+                @if(Auth::user()->images == 'no-image.png')
+                <img src="images/no-image.png" class="icon">
+                @else
                 <img class="" src="{{asset('storage/image/'.Auth::user()->images)}}" width="40" height="40">
+                @endif
 
 
             </div>
